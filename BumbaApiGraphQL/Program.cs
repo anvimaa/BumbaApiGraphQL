@@ -2,12 +2,11 @@ using BumbaApiGraphQL.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("SQLServer");
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(connectionString));
+var connectionString = builder.Configuration.GetConnectionString("todos") ?? "Data Source=todos.db";
+builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(connectionString));
 
 var app = builder.Build();
 
