@@ -1,8 +1,8 @@
-﻿namespace BumbaApiGraphQL.Models
+﻿using BumbaApiGraphQL.Models.Base;
+
+namespace BumbaApiGraphQL.Models;
+
+public class User : Bases
 {
-    public class User
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-    }
+    public string Name { get; set; } = string.Empty;
 }

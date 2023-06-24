@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BumbaApiGraphQL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230622182438_Ok")]
-    partial class Ok
+    [Migration("20230624201410_Init2")]
+    partial class Init2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,11 +24,105 @@ namespace BumbaApiGraphQL.Migrations
                 .HasAnnotation("Proxies:CheckEquality", false)
                 .HasAnnotation("Proxies:LazyLoading", true);
 
+            modelBuilder.Entity("BumbaApiGraphQL.Models.Cemiterio", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataCadastramento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("MunicipioId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Responsavel")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MunicipioId");
+
+                    b.ToTable("Cemiterios");
+                });
+
+            modelBuilder.Entity("BumbaApiGraphQL.Models.Defunto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CemiterioId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataCadastramento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataEnterro")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataFalecimento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataNascimento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Endereco")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Genero")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NomeCompleto")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NomeParente")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NumeroIdentidade")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TerminalParente")
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TipoIdentidade")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CemiterioId");
+
+                    b.ToTable("Defuntos");
+                });
+
             modelBuilder.Entity("BumbaApiGraphQL.Models.Municipio", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataCadastramento")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -93,6 +187,9 @@ namespace BumbaApiGraphQL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("DataCadastramento")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(128)
@@ -108,6 +205,9 @@ namespace BumbaApiGraphQL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataCadastramento")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -165,6 +265,28 @@ namespace BumbaApiGraphQL.Migrations
                     b.ToTable("Utentes");
                 });
 
+            modelBuilder.Entity("BumbaApiGraphQL.Models.Cemiterio", b =>
+                {
+                    b.HasOne("BumbaApiGraphQL.Models.Municipio", "Municipio")
+                        .WithMany("Cemiterios")
+                        .HasForeignKey("MunicipioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Municipio");
+                });
+
+            modelBuilder.Entity("BumbaApiGraphQL.Models.Defunto", b =>
+                {
+                    b.HasOne("BumbaApiGraphQL.Models.Cemiterio", "Cemiterio")
+                        .WithMany("Defuntos")
+                        .HasForeignKey("CemiterioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cemiterio");
+                });
+
             modelBuilder.Entity("BumbaApiGraphQL.Models.Municipio", b =>
                 {
                     b.HasOne("BumbaApiGraphQL.Models.Provincia", "Provincia")
@@ -187,8 +309,15 @@ namespace BumbaApiGraphQL.Migrations
                     b.Navigation("Municipio");
                 });
 
+            modelBuilder.Entity("BumbaApiGraphQL.Models.Cemiterio", b =>
+                {
+                    b.Navigation("Defuntos");
+                });
+
             modelBuilder.Entity("BumbaApiGraphQL.Models.Municipio", b =>
                 {
+                    b.Navigation("Cemiterios");
+
                     b.Navigation("Utentes");
                 });
 

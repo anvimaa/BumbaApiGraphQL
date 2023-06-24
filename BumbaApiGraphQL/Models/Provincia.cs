@@ -1,16 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BumbaApiGraphQL.Models.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace BumbaApiGraphQL.Models;
 
-public class Provincia
+public class Provincia : Bases
 {
     public Provincia()
     {
         this.Municipios = new HashSet<Municipio>();
     }
-
-    [Key]
-    public int Id { get; set; }
 
     [Required, MaxLength(128)]
     public string? Nome { get; set; }

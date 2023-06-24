@@ -4,9 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("amudb") ?? "Data Source=amudb.db";
-builder.Services.AddDbContext<DataContext>(options
-=> options.UseSqlite(connectionString).UseLazyLoadingProxies());
+var connectionString = builder.Configuration.GetConnectionString("amudb");
+builder.Services.AddDbContext<DataContext>(o => o.UseSqlite(connectionString).UseLazyLoadingProxies());
 
 builder.Services.AddCors(options =>
 {

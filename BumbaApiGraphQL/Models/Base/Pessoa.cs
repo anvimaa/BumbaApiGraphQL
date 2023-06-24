@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace BumbaApiGraphQL.Models;
+namespace BumbaApiGraphQL.Models.Base;
 
-public class Pessoa
+public class Pessoa : Bases
 {
     [Required, MaxLength(100)]
     public string? NomeCompleto { get; set; }
@@ -21,7 +21,4 @@ public class Pessoa
 
     [Required]
     public DateTime DataNascimento { get; set; }
-    
-    public DateTime DataCadastramento { get; set; }
-
 }

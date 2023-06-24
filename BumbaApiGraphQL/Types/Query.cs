@@ -35,4 +35,18 @@ public class Query
     [UseFiltering]
     public async Task<List<Utente>> GetUtentesAsync([Service] DataContext context) => await context.Utentes!.ToListAsync();
     #endregion
+
+    #region Cemiterio
+    [UsePaging]
+    [UseSorting]
+    [UseFiltering]
+    public async Task<List<Cemiterio>> GetCemiteriosAsync([Service] DataContext context) => await context.Cemiterios!.ToListAsync();
+    #endregion
+
+    #region Defunto
+    [UsePaging]
+    [UseSorting]
+    [UseFiltering]
+    public async Task<List<Defunto>> GetDefuntosAsync([Service] DataContext context) => await context.Defuntos!.ToListAsync();
+    #endregion
 }

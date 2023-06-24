@@ -1,16 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BumbaApiGraphQL.Models.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace BumbaApiGraphQL.Models;
 
-public class Municipio
+public class Municipio : Bases
 {
     public Municipio()
     {
         this.Utentes = new HashSet<Utente>();
+        this.Cemiterios = new HashSet<Cemiterio>();
     }
-
-    [Key]
-    public int Id { get; set; }
 
     [Required, MaxLength(128)]
     public string? Nome { get; set; }
@@ -19,4 +18,5 @@ public class Municipio
     public virtual Provincia? Provincia { get; set; }
 
     public virtual ICollection<Utente> Utentes { get; set; }
+    public virtual ICollection<Cemiterio> Cemiterios { get; set; }
 }
