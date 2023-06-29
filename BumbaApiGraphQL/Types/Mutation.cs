@@ -5,112 +5,213 @@ namespace BumbaApiGraphQL.Types;
 
 public class Mutation
 {
-    #region User
-    public async Task<User> CreateUser([Service] DataContext ctx, User input)
+    #region Cemiterio
+    public async Task<Cemiterio> CreateUpdateCemiterio([Service] DataContext ctx, Cemiterio input)
     {
-        ctx.User?.Add(input);
-        await ctx.SaveChangesAsync();
-        return input;
+        try
+        {
+            if (input.Id == 0)
+                ctx.Cemiterios?.Add(input);
+            else
+                ctx.Cemiterios?.Update(input);
+            await ctx.SaveChangesAsync();
+            return input;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao salvar ou cadastrar a entidade. {ex.Message}");
+        }
+    }
+
+    public async Task<bool> DeleteCemiterio([Service] DataContext ctx, int id)
+    {
+        try
+        {
+            var exist = await ctx.Cemiterios!.FindAsync(id);
+            if (exist is null) return false;
+            ctx.Cemiterios!.Remove(exist);
+            await ctx.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao deletar a entidade. {ex.Message}");
+        }
     }
     #endregion
 
-    #region Provincia
-    public async Task<Provincia> CreateProvincia([Service] DataContext ctx, Provincia input)
+    #region Defunto
+    public async Task<Defunto> CreateUpdateDefunto([Service] DataContext ctx, Defunto input)
     {
-        ctx.Provincias?.Add(input);
-        await ctx.SaveChangesAsync();
-        return input;
+        try
+        {
+            if (input.Id == 0)
+                ctx.Defuntos?.Add(input);
+            else
+                ctx.Defuntos?.Update(input);
+            await ctx.SaveChangesAsync();
+            return input;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao salvar ou cadastrar a entidade. {ex.Message}");
+        }
     }
 
-    public async Task<Provincia> UpdateProvincia([Service] DataContext ctx, Provincia input)
+    public async Task<bool> DeleteDefunto([Service] DataContext ctx, int id)
     {
-        ctx.Provincias?.Update(input);
-        await ctx.SaveChangesAsync();
-        return input;
-    }
-
-    public async Task<bool> DeleteProvincia([Service] DataContext ctx, int id)
-    {
-        var exist = await ctx.Provincias!.FindAsync(id);
-        if (exist is null) return false;
-        ctx.Provincias!.Remove(exist);
-        await ctx.SaveChangesAsync();
-        return true;
+        try
+        {
+            var exist = await ctx.Defuntos!.FindAsync(id);
+            if (exist is null) return false;
+            ctx.Defuntos!.Remove(exist);
+            await ctx.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao deletar a entidade. {ex.Message}");
+        }
     }
     #endregion
 
     #region Municipio
-    public async Task<Municipio> CreateMunicipio([Service] DataContext ctx, Municipio input)
+    public async Task<Municipio> CreateUpdateMunicipio([Service] DataContext ctx, Municipio input)
     {
-        ctx.Municipios?.Add(input);
-        await ctx.SaveChangesAsync();
-        return input;
-    }
-
-    public async Task<Municipio> UpdateMunicipio([Service] DataContext ctx, Municipio input)
-    {
-        ctx.Municipios?.Update(input);
-        await ctx.SaveChangesAsync();
-        return input;
+        try
+        {
+            if (input.Id == 0)
+                ctx.Municipios?.Add(input);
+            else
+                ctx.Municipios?.Update(input);
+            await ctx.SaveChangesAsync();
+            return input;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao salvar ou cadastrar a entidade. {ex.Message}");
+        }
     }
 
     public async Task<bool> DeleteMunicipio([Service] DataContext ctx, int id)
     {
-        var exist = await ctx.Municipios!.FindAsync(id);
-        if (exist is null) return false;
-        ctx.Municipios!.Remove(exist);
-        await ctx.SaveChangesAsync();
-        return true;
+        try
+        {
+            var exist = await ctx.Municipios!.FindAsync(id);
+            if (exist is null) return false;
+            ctx.Municipios!.Remove(exist);
+            await ctx.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao deletar a entidade. {ex.Message}");
+        }
+    }
+    #endregion
+
+    #region Provincia
+    public async Task<Provincia> CreateUpdateProvincia([Service] DataContext ctx, Provincia input)
+    {
+        try
+        {
+            if (input.Id == 0)
+                ctx.Provincias?.Add(input);
+            else
+                ctx.Provincias?.Update(input);
+            await ctx.SaveChangesAsync();
+            return input;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao salvar ou cadastrar a entidade. {ex.Message}");
+        }
+    }
+
+    public async Task<bool> DeleteProvincia([Service] DataContext ctx, int id)
+    {
+        try
+        {
+            var exist = await ctx.Provincias!.FindAsync(id);
+            if (exist is null) return false;
+            ctx.Provincias!.Remove(exist);
+            await ctx.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao deletar a entidade. {ex.Message}");
+        }
+    }
+    #endregion
+
+    #region User
+    public async Task<User> CreateUpdateUser([Service] DataContext ctx, User input)
+    {
+        try
+        {
+            if (input.Id == 0)
+                ctx.User?.Add(input);
+            else
+                ctx.User?.Update(input);
+            await ctx.SaveChangesAsync();
+            return input;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao salvar ou cadastrar a entidade. {ex.Message}");
+        }
+    }
+
+    public async Task<bool> DeleteUser([Service] DataContext ctx, int id)
+    {
+        try
+        {
+            var exist = await ctx.User!.FindAsync(id);
+            if (exist is null) return false;
+            ctx.User!.Remove(exist);
+            await ctx.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao deletar a entidade. {ex.Message}");
+        }
     }
     #endregion
 
     #region Utente
-    public async Task<Utente> CreateUtente([Service] DataContext ctx, Utente input)
+    public async Task<Utente> CreateUpdateUtente([Service] DataContext ctx, Utente input)
     {
-        ctx.Utentes?.Add(input);
-        await ctx.SaveChangesAsync();
-        return input;
-    }
-
-    public async Task<Utente> UpdateUtente([Service] DataContext ctx, Utente input)
-    {
-        ctx.Utentes?.Update(input);
-        await ctx.SaveChangesAsync();
-        return input;
+        try
+        {
+            if (input.Id == 0)
+                ctx.Utentes?.Add(input);
+            else
+                ctx.Utentes?.Update(input);
+            await ctx.SaveChangesAsync();
+            return input;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao salvar ou cadastrar a entidade. {ex.Message}");
+        }
     }
 
     public async Task<bool> DeleteUtente([Service] DataContext ctx, int id)
     {
-        var exist = await ctx.Utentes!.FindAsync(id);
-        if (exist is null) return false;
-        ctx.Utentes!.Remove(exist);
-        await ctx.SaveChangesAsync();
-        return true;
-    }
-    #endregion
-
-    #region Proprietario
-    public async Task<Proprietario> CreateProprietario([Service] DataContext ctx, Proprietario input)
-    {
-        ctx.Proprietarios?.Add(input);
-        await ctx.SaveChangesAsync();
-        return input;
-    }
-
-    public async Task<Proprietario> UpdateProprietario([Service] DataContext ctx, Proprietario input)
-    {
-        ctx.Proprietarios?.Update(input);
-        await ctx.SaveChangesAsync();
-        return input;
-    }
-
-    public async Task<bool> DeleteProprietario([Service] DataContext ctx, int id)
-    {
-        var exist = await ctx.Proprietarios!.FindAsync(id);
-        if (exist is null) return false;
-        ctx.Proprietarios!.Remove(exist);
-        await ctx.SaveChangesAsync();
-        return true;
+        try
+        {
+            var exist = await ctx.Utentes!.FindAsync(id);
+            if (exist is null) return false;
+            ctx.Utentes!.Remove(exist);
+            await ctx.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao deletar a entidade. {ex.Message}");
+        }
     }
     #endregion
 }
