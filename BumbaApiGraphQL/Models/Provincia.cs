@@ -13,5 +13,5 @@ public class Provincia : Bases
     [Required, MaxLength(128)]
     public string? Nome { get; set; }
 
-    public virtual ICollection<Municipio> Municipios { get; set; }
+    public virtual ICollection<Municipio>? Municipios { get; set; }
 }

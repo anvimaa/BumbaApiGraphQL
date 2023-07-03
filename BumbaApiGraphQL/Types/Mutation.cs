@@ -214,4 +214,39 @@ public class Mutation
         }
     }
     #endregion
+
+    #region Appointment
+    public async Task<Appointment> CreateUpdateAppointment([Service] DataContext ctx, Appointment input)
+    {
+        try
+        {
+            if (input.Id == 0)
+                ctx.Appointments?.Add(input);
+            else
+                ctx.Appointments?.Update(input);
+            await ctx.SaveChangesAsync();
+            return input;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao salvar ou cadastrar a entidade. {ex.Message}");
+        }
+    }
+
+    public async Task<bool> DeleteAppointment([Service] DataContext ctx, int id)
+    {
+        try
+        {
+            var exist = await ctx.Appointments!.FindAsync(id);
+            if (exist is null) return false;
+            ctx.Appointments!.Remove(exist);
+            await ctx.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao deletar a entidade. {ex.Message}");
+        }
+    }
+    #endregion
 }

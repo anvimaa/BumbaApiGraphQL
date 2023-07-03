@@ -14,5 +14,8 @@ namespace BumbaApiGraphQL.Data
         public DbSet<Proprietario>? Proprietarios { get; set; }
         public DbSet<Defunto>? Defuntos { get; set; }
         public DbSet<Cemiterio>? Cemiterios { get; set; }
+
+        public DbSet<Appointment>? Appointments { get; set; }
+        public DbSet<Transladacao>? Transladacao { get; set; }
     }
 }

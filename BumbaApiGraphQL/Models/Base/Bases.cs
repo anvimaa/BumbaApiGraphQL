@@ -6,5 +6,5 @@ public class Bases
 {
     [Key]
     public int Id { get; set; }
-    public DateTime DataCadastramento { get; set; } = DateTime.Now;
+    public DateTime DataCadastramento { get; set; }
 }

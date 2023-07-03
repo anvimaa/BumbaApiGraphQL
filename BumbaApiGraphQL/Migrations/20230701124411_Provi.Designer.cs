@@ -3,6 +3,7 @@ using System;
 using BumbaApiGraphQL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BumbaApiGraphQL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230701124411_Provi")]
+    partial class Provi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,51 +220,6 @@ namespace BumbaApiGraphQL.Migrations
                     b.ToTable("Provincias");
                 });
 
-            modelBuilder.Entity("BumbaApiGraphQL.Models.Transladacao", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CemiterioId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("DataCadastramento")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DataEnterro")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DataFalecimento")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Genero")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Idade")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsTransladacao")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Responsavel")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("ValorPago")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CemiterioId");
-
-                    b.ToTable("Transladacao");
-                });
-
             modelBuilder.Entity("BumbaApiGraphQL.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -360,17 +318,6 @@ namespace BumbaApiGraphQL.Migrations
                     b.Navigation("Provincia");
                 });
 
-            modelBuilder.Entity("BumbaApiGraphQL.Models.Transladacao", b =>
-                {
-                    b.HasOne("BumbaApiGraphQL.Models.Cemiterio", "Cemiterio")
-                        .WithMany("Transladacaos")
-                        .HasForeignKey("CemiterioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cemiterio");
-                });
-
             modelBuilder.Entity("BumbaApiGraphQL.Models.Utente", b =>
                 {
                     b.HasOne("BumbaApiGraphQL.Models.Municipio", "Municipio")
@@ -385,8 +332,6 @@ namespace BumbaApiGraphQL.Migrations
             modelBuilder.Entity("BumbaApiGraphQL.Models.Cemiterio", b =>
                 {
                     b.Navigation("Defuntos");
-
-                    b.Navigation("Transladacaos");
                 });
 
             modelBuilder.Entity("BumbaApiGraphQL.Models.Municipio", b =>

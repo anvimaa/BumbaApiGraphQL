@@ -17,6 +17,6 @@ public class Municipio : Bases
     public int ProvinciaId { get; set; }
     public virtual Provincia? Provincia { get; set; }
 
-    public virtual ICollection<Utente> Utentes { get; set; }
-    public virtual ICollection<Cemiterio> Cemiterios { get; set; }
+    public virtual ICollection<Utente>? Utentes { get; set; }
+    public virtual ICollection<Cemiterio>? Cemiterios { get; set; }
 }
