@@ -249,4 +249,39 @@ public class Mutation
         }
     }
     #endregion
+
+    #region Transladacao
+    public async Task<Transladacao> CreateUpdateTransladacao([Service] DataContext ctx, Transladacao input)
+    {
+        try
+        {
+            if (input.Id == 0)
+                ctx.Transladacao?.Add(input);
+            else
+                ctx.Transladacao?.Update(input);
+            await ctx.SaveChangesAsync();
+            return input;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao salvar ou cadastrar a entidade. {ex.Message}");
+        }
+    }
+
+    public async Task<bool> DeleteTransladacao([Service] DataContext ctx, int id)
+    {
+        try
+        {
+            var exist = await ctx.Transladacao!.FindAsync(id);
+            if (exist is null) return false;
+            ctx.Transladacao!.Remove(exist);
+            await ctx.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao deletar a entidade. {ex.Message}");
+        }
+    }
+    #endregion
 }

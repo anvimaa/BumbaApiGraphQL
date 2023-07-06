@@ -47,4 +47,10 @@ public class Query
     [UseFiltering]
     public async Task<List<Appointment>> GetAppointmentsAsync([Service] DataContext context) => await context.Appointments!.ToListAsync();
     #endregion
+
+    #region Transladacao
+    [UseSorting]
+    [UseFiltering]
+    public async Task<List<Transladacao>> GetTransladacaosAsync([Service] DataContext context) => await context.Transladacao!.ToListAsync();
+    #endregion
 }
